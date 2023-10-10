@@ -4,7 +4,7 @@ type Item = { weight: number; value: number };
 type Individual = number[];
 type ValueRange = { min: number; max: number };
 
-export { solveKnapsack };
+export { generateItems, solveKnapsack };
 
 function initializePopulation({ populationSize, initialGenes, items }: { populationSize: number; initialGenes?: 'random' | 'zeros' | 'ones'; items: Item[] }) {
   const initialGenesFn = {
@@ -87,6 +87,7 @@ function solveKnapsack({
   weightRange,
   valueRange,
   tournamentSampleSize,
+  items,
 }: {
   generationCount: number;
   populationSize: number;
@@ -97,9 +98,8 @@ function solveKnapsack({
   weightRange: ValueRange;
   valueRange: ValueRange;
   tournamentSampleSize: number;
+  items: Item[];
 }) {
-  const { items } = generateItems({ itemCount, weightRange, valueRange });
-
   let population = initializePopulation({ populationSize, initialGenes, items });
   const stats: any[] = [];
 

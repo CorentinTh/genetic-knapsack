@@ -3,9 +3,9 @@ import { solveKnapsack } from './knapsack';
 const worker: Worker = self as any;
 
 worker.addEventListener('message', (event) => {
-  const { generationCount, populationSize, mutationRate, itemCount, backpackCapacity, initialGenes, weightRange, valueRange, tournamentSampleSize } = JSON.parse(event.data);
+  const { generationCount, populationSize, mutationRate, itemCount, backpackCapacity, initialGenes, weightRange, valueRange, tournamentSampleSize, items } = JSON.parse(event.data);
 
-  const { items, stats, duration } = solveKnapsack({
+  const { stats, duration } = solveKnapsack({
     generationCount,
     populationSize,
     mutationRate,
@@ -15,7 +15,8 @@ worker.addEventListener('message', (event) => {
     weightRange,
     valueRange,
     tournamentSampleSize,
+    items,
   });
 
-  worker.postMessage({ stats, items, duration });
+  worker.postMessage({ stats, duration });
 });
